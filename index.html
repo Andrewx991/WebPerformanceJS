@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+  <head>
+    <meta name="author" content="Andrew Hagner" />
+    <meta name="description" content="Simple page to demo WebPerformance.js" />
+    <title>WebPerformance.js Demo</title>
+    <script src=".\src\WebPerformance.js"/></script>
+
+  </head>
+  <body>
+    <h1>WebPerformance.js Demo</h1>
+    <pre id="performanceInfo"></pre>
+
+    <h2>Image Resources:</h2>
+    <img style="height: 100px; width: 100px;" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"/>
+    <img style="height: 100px; width: 100px;" src="http://logodatabases.com/wp-content/uploads/2011/12/visa-logo-high-resolution.jpg"/>
+    <img style="height: 100px; width: 100px;" src="http://google.com/nonexistantimg.jaypeegee"/>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous">
+    </script>
+
+    <script
+      src="https://google.com/nonexistant.js"
+      crossorigin="anonymous">
+    </script>
+
+
+    <script>
+    (function() {
+       var element = document.getElementById("performanceInfo");
+       element.innerText = JSON.stringify(webPerformance.PagePerformanceMetrics(), null, '\t');
+      })();
+    </script>
+  </body>
+</html>
