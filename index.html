@@ -29,8 +29,10 @@
 
     <script>
     (function() {
-       var element = document.getElementById("performanceInfo");
-       element.innerText = JSON.stringify(webPerformance.PagePerformanceMetrics(), null, '\t');
+      setTimeout(function(){
+         var element = document.getElementById("performanceInfo");
+         element.innerText = JSON.stringify(webPerformance.PagePerformanceMetrics(), null, '\t');
+       }, 2500);
       })();
     </script>
   </body>

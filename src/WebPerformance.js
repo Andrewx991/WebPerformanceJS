@@ -62,12 +62,33 @@
 
       // Calcualted Data - Simplified Metrics
       summary: {
+        timeToFirstByte: rawPerformanceObject.responseStart - rawPerformanceObject.navigationStart,
         timeToRetrieveResponse: rawPerformanceObject.responseEnd - rawPerformanceObject.fetchStart, // How long did it take to serve?
-        timeToInteractive: rawPerformanceObject.loadEventEnd - rawPerformanceObject.responseEnd, // How long did it take to process in browser?
+        timeToFirstPaintAfterResponse: getTimeToFirstPaint(rawPerformanceObject),
+        timeToProcessResponse: rawPerformanceObject.loadEventEnd - rawPerformanceObject.responseEnd, // How long did it take to process in browser?
+        totalTimeToFirstRender: (rawPerformanceObject.responseEnd - rawPerformanceObject.navigationStart) + getTimeToFirstPaint(rawPerformanceObject),
+        totalTimeToUsefulRender: rawPerformanceObject.domContentLoadedEventEnd - rawPerformanceObject.navigationStart,
+        totalTimeToReady: rawPerformanceObject.loadEventEnd - rawPerformanceObject.fetchStart
       },
 
       resources: ResourcePerformanceMetrics()
     };
+  }
+
+  // How much time does it take to first render after initial response?
+  function getTimeToFirstPaint(timing) {
+    if (window.chrome && window.chrome.loadTimes) {
+      loadTimes = window.chrome.loadTimes();
+      // (Should be equialent to below) chromeReportedLoad = (loadTimes.firstPaintTime - loadTimes.startLoadTime) * 1000;
+      timeToFirstPaint = (loadTimes.firstPaintTime * 1000) - timing.navigationStart
+      return Math.round(timeToFirstPaint);
+    }
+
+    if (timing.msFirstPaint) {
+      return timing.msFirstPaint - timing.navigationStart;
+    }
+
+    return;
   }
 
   function ResourcePerformanceMetrics() {
