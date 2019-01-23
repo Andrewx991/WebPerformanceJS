@@ -9,7 +9,7 @@
   var webPerformance = {
     PerformanceApi: null,
     PerformanceApiSupported: true,
-    PerformanceWebRespourceApiSupported: true,
+    PerformanceWebResourceApiSupported: true,
     PagePerformanceMetrics: null,
     ResourcePerformanceMetrics: null
   };
@@ -92,7 +92,7 @@
   }
 
   function ResourcePerformanceMetrics() {
-    if (!webPerformance.PerformanceWebRespourceApiSupported) {
+    if (!webPerformance.PerformanceWebResourceApiSupported) {
       Log('Tried to get metrics but agent does not support Web Resource Timing Api.');
       return null;
     }
